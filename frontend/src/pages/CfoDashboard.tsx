@@ -21,6 +21,8 @@ import {
 import { apiClient } from '../api/client';
 import { CfoMetrics } from '../types';
 import { useTelemetryStore } from '../store/telemetryStore';
+import { MonteCarloSandbox } from '../components/MonteCarloSandbox';
+import { AutonomousRebalancer } from '../components/AutonomousRebalancer';
 
 interface CfoDashboardProps {
   onNavigate: (tab: string) => void;
@@ -316,7 +318,16 @@ export const CfoDashboard: React.FC<CfoDashboardProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* 3. Bloomberg / Stripe-Style High-Density Data Table for Anomaly Queue */}
+      {/* 3. Interactive Cashflow Monte Carlo Simulation Sandbox */}
+      <MonteCarloSandbox
+        currentLiquidity={displayData.netLiquidity}
+        currentBurnRate={displayData.monthlyBurnRate}
+      />
+
+      {/* 4. Autonomous Treasury Rebalancer & Liquidity Optimizer */}
+      <AutonomousRebalancer />
+
+      {/* 5. Bloomberg / Stripe-Style High-Density Data Table for Anomaly Queue */}
       <div className="hairline-card rounded-xl overflow-hidden">
         <div className="h-11 px-4 border-b border-white/[0.06] flex items-center justify-between bg-white/[0.01]">
           <div className="flex items-center space-x-2">

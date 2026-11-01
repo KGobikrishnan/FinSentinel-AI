@@ -11,9 +11,14 @@ import { UserRole } from '../types';
 interface HeaderProps {
   activeTab: string;
   onToggleAlertTicker?: () => void;
+  onOpenCommandPalette?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeTab, onToggleAlertTicker }) => {
+export const Header: React.FC<HeaderProps> = ({
+  activeTab,
+  onToggleAlertTicker,
+  onOpenCommandPalette,
+}) => {
   const { user, switchDemoRole } = useAuthStore();
   const { isConnected, unreadAlertCount } = useTelemetryStore();
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
@@ -50,6 +55,18 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onToggleAlertTicker }
 
       {/* Header Actions */}
       <div className="flex items-center space-x-2.5">
+        {/* Raycast ⌘K Command Palette Trigger */}
+        <button
+          onClick={onOpenCommandPalette}
+          className="h-7 px-2.5 rounded-md flex items-center space-x-2 text-[11px] font-mono text-zinc-400 hover:text-zinc-200 border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05] transition-colors cursor-pointer"
+          title="Open Command Palette (⌘K / Ctrl+K)"
+        >
+          <span className="font-sans text-xs">Search</span>
+          <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/[0.06] text-[10px] text-zinc-400">
+            ⌘K
+          </kbd>
+        </button>
+
         {/* STOMP Live Indicator */}
         <div
           className="flex items-center space-x-1.5 px-2 py-1 rounded-md text-[11px] font-mono text-zinc-400 border border-white/[0.06] bg-white/[0.02]"

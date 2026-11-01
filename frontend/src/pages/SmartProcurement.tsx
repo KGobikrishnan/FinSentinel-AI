@@ -12,12 +12,16 @@ import {
 } from 'lucide-react';
 import { apiClient } from '../api/client';
 import { Invoice, Vendor, AuditDecisionRequest, TriageStatus } from '../types';
+import { InvoicePdfInspector } from '../components/InvoicePdfInspector';
+import { VendorGraph } from '../components/VendorGraph';
 
 export const SmartProcurement: React.FC = () => {
   const queryClient = useQueryClient();
-  const [activeTab, setActiveTab] = useState<'invoices' | 'upload' | 'vendors'>('invoices');
+  const [activeTab, setActiveTab] = useState<'invoices' | 'upload' | 'vendors' | 'graph'>('invoices');
   const [statusFilter, setStatusFilter] = useState<'ALL' | TriageStatus>('ALL');
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+  const [inspectorOpen, setInspectorOpen] = useState<boolean>(false);
+  const [inspectingInvoice, setInspectingInvoice] = useState<Invoice | null>(null);
 
   // Manual Audit Override Modal State
   const [auditModalOpen, setAuditModalOpen] = useState(false);
@@ -167,6 +171,17 @@ export const SmartProcurement: React.FC = () => {
           >
             <Building2 className="w-3.5 h-3.5 text-zinc-400" />
             <span>Vendors ({vendors.length})</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('graph')}
+            className={`h-7 px-3 rounded-md text-xs font-medium transition-colors flex items-center space-x-1.5 ${
+              activeTab === 'graph'
+                ? 'bg-white/[0.08] text-zinc-100 shadow-specular'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]'
+            }`}
+          >
+            <RefreshCw className="w-3.5 h-3.5 text-zinc-400" />
+            <span>Supplier Matrix</span>
           </button>
         </div>
 
@@ -537,6 +552,16 @@ export const SmartProcurement: React.FC = () => {
         </div>
       )}
 
+      {/* Supplier Matrix & 3-Way Match Graph Tab */}
+      {activeTab === 'graph' && (
+        <VendorGraph
+          vendors={vendors}
+          onSelectVendor={() => {
+            setActiveTab('vendors');
+          }}
+        />
+      )}
+
       {/* Invoice Detail Drawer */}
       {selectedInvoice && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-end animate-in fade-in">
@@ -627,6 +652,18 @@ export const SmartProcurement: React.FC = () => {
               )}
             </div>
 
+            {/* Inspect OCR Document with Bounding Boxes */}
+            <button
+              onClick={() => {
+                setInspectingInvoice(selectedInvoice);
+                setInspectorOpen(true);
+              }}
+              className="w-full h-8 rounded-md text-xs font-medium bg-white/[0.04] hover:bg-white/[0.08] text-zinc-200 border border-white/[0.08] transition-all cursor-pointer flex items-center justify-center space-x-1.5"
+            >
+              <FileCheck className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Inspect OCR & Bounding Boxes</span>
+            </button>
+
             {!selectedInvoice.journalEntryId && (
               <button
                 onClick={() => setAuditModalOpen(true)}
@@ -637,6 +674,22 @@ export const SmartProcurement: React.FC = () => {
             )}
           </div>
         </div>
+      )}
+
+      {/* OCR Split-Screen Inspector Modal */}
+      {inspectorOpen && inspectingInvoice && (
+        <InvoicePdfInspector
+          invoice={inspectingInvoice}
+          onClose={() => setInspectorOpen(false)}
+          onApprove={() => {
+            setInspectorOpen(false);
+            setAuditModalOpen(true);
+          }}
+          onReject={() => {
+            setInspectorOpen(false);
+            setAuditModalOpen(true);
+          }}
+        />
       )}
 
       {/* Auditor Decision Modal */}
