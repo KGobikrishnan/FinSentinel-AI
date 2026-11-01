@@ -36,9 +36,14 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onToggleAlertTicker }
 
   return (
     <header className="h-14 bg-[#09090B]/90 backdrop-blur-md border-b border-white/[0.06] px-6 flex items-center justify-between sticky top-0 z-20 select-none">
-      {/* Breadcrumb Navigation (Linear / macOS style) */}
-      <div className="flex items-center space-x-2 text-[13px]">
-        <span className="text-zinc-500 font-medium">{current.module}</span>
+      {/* Breadcrumb Navigation with Logo (Linear / macOS style) */}
+      <div className="flex items-center space-x-3 text-[13px]">
+        <div className="flex items-center space-x-2">
+          <img src="/icon.png" alt="FinSentinel AI Logo" className="w-5 h-5 object-contain" />
+          <span className="font-semibold text-zinc-200 tracking-tight">FinSentinel AI</span>
+        </div>
+        <span className="text-zinc-700">/</span>
+        <span className="text-zinc-400 font-medium">{current.module}</span>
         <span className="text-zinc-600">/</span>
         <span className="text-zinc-100 font-semibold tracking-tight">{current.section}</span>
       </div>

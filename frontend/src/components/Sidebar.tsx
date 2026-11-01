@@ -4,7 +4,6 @@ import {
   BookOpenCheck,
   FileSpreadsheet,
   Bot,
-  Shield,
 } from 'lucide-react';
 import { useTelemetryStore } from '../store/telemetryStore';
 import { useAuthStore } from '../store/authStore';
@@ -57,12 +56,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
         {/* Sleek Linear-style Brand Header */}
         <div className="h-14 px-4 border-b border-white/[0.06] flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
-            <div className="w-6 h-6 rounded-md bg-zinc-100 flex items-center justify-center text-zinc-950 shadow-sm">
-              <Shield className="w-3.5 h-3.5 fill-current" />
+            <div className="w-7 h-7 rounded-md overflow-hidden bg-black/40 border border-white/[0.08] flex items-center justify-center p-0.5 shadow-sm">
+              <img src="/icon.png" alt="FinSentinel AI" className="w-full h-full object-contain" />
             </div>
-            <div className="flex items-baseline space-x-1.5">
-              <span className="font-semibold text-[13px] text-zinc-100 tracking-tight">FinSentinel</span>
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">OS</span>
+            <div className="flex flex-col">
+              <span className="font-semibold text-[13px] text-zinc-100 tracking-tight leading-tight">FinSentinel AI</span>
+              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Enterprise OS</span>
             </div>
           </div>
 
