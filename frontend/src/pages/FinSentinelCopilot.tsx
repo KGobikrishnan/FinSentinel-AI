@@ -136,24 +136,47 @@ export const FinSentinelCopilot: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8.5rem)] max-w-4xl mx-auto hairline-card rounded-xl overflow-hidden shadow-2xl animate-in fade-in">
-      {/* Copilot Header */}
-      <div className="h-11 px-4 border-b border-white/[0.06] bg-white/[0.01] flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Bot className="w-4 h-4 text-zinc-300" />
-          <span className="text-xs font-semibold text-zinc-100">Forensic FinOps Agent</span>
-          <span className="text-[10px] font-mono text-zinc-500 border border-white/[0.06] px-1.5 py-0.5 rounded bg-white/[0.02]">
-            MCP Active
-          </span>
+    <div className="space-y-4 max-w-5xl mx-auto animate-in fade-in">
+      {/* 1. Page Header (Finnova Style) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+        <div className="flex items-center space-x-3.5">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#5847F6] to-[#7B68EE] shadow-md shadow-indigo-500/25 flex items-center justify-center text-white font-bold">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-[32px] font-extrabold tracking-tight text-slate-900 leading-tight">
+              FinOps AI Copilot
+            </h1>
+            <p className="text-xs text-slate-400 font-medium mt-0.5">
+              Spring AI pgvector corporate policy RAG & safe Model Context Protocol (MCP) tool calling.
+            </p>
+          </div>
         </div>
 
         <button
           onClick={() => setMessages(INITIAL_MESSAGES)}
-          className="text-[11px] font-mono text-zinc-500 hover:text-zinc-300 px-2 py-0.5 rounded hover:bg-white/[0.04] transition-colors cursor-pointer"
+          className="h-9 px-4 rounded-full bg-white border border-slate-200/80 text-xs font-semibold text-slate-600 hover:text-indigo-600 shadow-sm transition-all"
         >
-          Clear Session
+          Reset Session
         </button>
       </div>
+
+      {/* Main Chat Dock */}
+      <div className="flex flex-col h-[650px] finnova-dock-shell overflow-hidden text-white">
+        {/* Copilot Header */}
+        <div className="h-12 px-5 border-b border-white/[0.08] bg-white/[0.02] flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Bot className="w-4 h-4 text-indigo-400" />
+            <span className="text-xs font-bold text-white">Forensic FinOps Agent</span>
+            <span className="text-[10px] font-mono text-indigo-300 border border-indigo-400/30 px-2 py-0.5 rounded-full bg-indigo-500/20">
+              MCP Active
+            </span>
+          </div>
+
+          <span className="text-[11px] font-mono text-zinc-400">
+            pgvector Cosine Distance
+          </span>
+        </div>
 
       {/* Messages Feed */}
       <div className="flex-1 overflow-y-auto p-5 space-y-5">
@@ -319,6 +342,7 @@ export const FinSentinelCopilot: React.FC = () => {
             <CornerDownLeft className="w-3 h-3 text-zinc-600" />
           </button>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -8,47 +8,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        obsidian: {
-          950: '#09090B',
-          900: '#0D0D10',
-          850: '#121216',
-          800: '#18181D',
-          700: '#272730',
-        },
-        surface: {
-          base: '#09090B',
-          raised: '#0F0F12',
-          overlay: '#141418',
-          hover: '#1B1B22',
+        finnova: {
+          canvas: '#F4F5FA',
+          card: '#FFFFFF',
+          navy: '#161622',
+          dock: '#181824',
+          indigo: '#5847F6',
+          indigoHover: '#4B3BE0',
+          gradientStart: '#635BFF',
+          gradientMid: '#5847F6',
+          gradientEnd: '#4636C9',
         },
       },
       fontFamily: {
         sans: [
+          'Plus Jakarta Sans',
           'Inter',
           '-apple-system',
           'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
           'sans-serif',
         ],
         mono: [
           'JetBrains Mono',
-          'Geist Mono',
           'ui-monospace',
-          'SFMono-Regular',
           'monospace',
         ],
       },
-      letterSpacing: {
-        tighter: '-0.03em',
-        tight: '-0.02em',
-        kpi: '-0.015em',
-        caption: '0.06em',
-      },
       boxShadow: {
-        'specular': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.06)',
-        'specular-hover': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 24px -4px rgba(0, 0, 0, 0.6)',
-        'subtle-card': '0 1px 2px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
+        'finnova-card': '0 10px 30px -10px rgba(15, 23, 42, 0.05)',
+        'finnova-pill': '0 8px 20px -4px rgba(88, 71, 246, 0.45)',
+        'finnova-dock': '0 25px 60px -15px rgba(24, 24, 36, 0.4)',
+        'finnova-glow': '0 0 25px rgba(88, 71, 246, 0.35)',
       },
     },
   },

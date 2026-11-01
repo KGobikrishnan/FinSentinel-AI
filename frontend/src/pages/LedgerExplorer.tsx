@@ -140,55 +140,71 @@ export const LedgerExplorer: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4 animate-in fade-in duration-200">
-      {/* Sub-Navigation & Actions Bar (Linear Style) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 hairline-card p-2.5 rounded-xl">
-        <div className="flex items-center space-x-1">
-          <button
-            onClick={() => setActiveSubTab('journals')}
-            className={`h-7 px-3 rounded-md text-xs font-medium transition-colors ${
-              activeSubTab === 'journals'
-                ? 'bg-white/[0.08] text-zinc-100 shadow-specular'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]'
-            }`}
-          >
-            Journal Entries ({journalEntries.length})
-          </button>
-          <button
-            onClick={() => setActiveSubTab('trial-balance')}
-            className={`h-7 px-3 rounded-md text-xs font-medium transition-colors flex items-center space-x-1.5 ${
-              activeSubTab === 'trial-balance'
-                ? 'bg-white/[0.08] text-zinc-100 shadow-specular'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]'
-            }`}
-          >
-            <Scale className="w-3.5 h-3.5 text-zinc-400" />
-            <span>Trial Balance</span>
-            {trialBalance?.isBalanced && (
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            )}
-          </button>
-          <button
-            onClick={() => setActiveSubTab('accounts')}
-            className={`h-7 px-3 rounded-md text-xs font-medium transition-colors ${
-              activeSubTab === 'accounts'
-                ? 'bg-white/[0.08] text-zinc-100 shadow-specular'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]'
-            }`}
-          >
-            Chart of Accounts ({accounts.length})
-          </button>
+    <div className="space-y-6 animate-in fade-in duration-200">
+      {/* 1. Page Header (Finnova Style) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+        <div className="flex items-center space-x-3.5">
+          <div className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-indigo-600 font-bold">
+            <Scale className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-[32px] font-extrabold tracking-tight text-slate-900 leading-tight">
+              General Ledger
+            </h1>
+            <p className="text-xs text-slate-400 font-medium mt-0.5">
+              High-concurrency double-entry invariants (ACID SERIALIZABLE) & trial balance.
+            </p>
+          </div>
         </div>
 
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => {
+              resetForm();
+              setIsModalOpen(true);
+            }}
+            className="h-10 px-5 rounded-full bg-[#5847F6] hover:bg-[#4B3BE0] text-white text-xs font-semibold flex items-center space-x-2 shadow-lg shadow-indigo-500/25 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Post Atomic Entry</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 2. Sub-Navigation Switcher (Pill Style) */}
+      <div className="flex items-center space-x-2">
         <button
-          onClick={() => {
-            resetForm();
-            setIsModalOpen(true);
-          }}
-          className="h-8 px-3 rounded-md bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-medium flex items-center space-x-1.5 shadow-sm transition-all cursor-pointer"
+          onClick={() => setActiveSubTab('journals')}
+          className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+            activeSubTab === 'journals'
+              ? 'bg-[#5847F6] text-white shadow-md shadow-indigo-500/25'
+              : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 shadow-sm'
+          }`}
         >
-          <Plus className="w-3.5 h-3.5" />
-          <span>New Journal Entry</span>
+          Journal Entries ({journalEntries.length})
+        </button>
+        <button
+          onClick={() => setActiveSubTab('trial-balance')}
+          className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center space-x-1.5 ${
+            activeSubTab === 'trial-balance'
+              ? 'bg-[#5847F6] text-white shadow-md shadow-indigo-500/25'
+              : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 shadow-sm'
+          }`}
+        >
+          <span>Trial Balance Sheet</span>
+          {trialBalance?.isBalanced && (
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+          )}
+        </button>
+        <button
+          onClick={() => setActiveSubTab('accounts')}
+          className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+            activeSubTab === 'accounts'
+              ? 'bg-[#5847F6] text-white shadow-md shadow-indigo-500/25'
+              : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 shadow-sm'
+          }`}
+        >
+          Chart of Accounts ({accounts.length})
         </button>
       </div>
 

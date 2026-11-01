@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Sidebar } from './Sidebar';
-import { Header } from './Header';
-import { StatusBar } from './StatusBar';
-import { LiveAnomalyTicker } from './LiveAnomalyTicker';
+import { FinnovaHeader } from './FinnovaHeader';
 import { CommandPalette } from './CommandPalette';
+import { LiveAnomalyTicker } from './LiveAnomalyTicker';
 import { useTelemetryStore } from '../store/telemetryStore';
 import { useAuthStore } from '../store/authStore';
 
@@ -16,14 +14,13 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ activeTab, setActiveTab, children }) => {
   const { initWebSocket, disconnectWebSocket } = useTelemetryStore();
   const { checkAuth } = useAuthStore();
-  const [tickerOpen, setTickerOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [tickerOpen, setTickerOpen] = useState(false);
 
   useEffect(() => {
     checkAuth();
     initWebSocket();
 
-    // Global ⌘K / Ctrl+K keyboard shortcut
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
@@ -40,42 +37,32 @@ export const Layout: React.FC<LayoutProps> = ({ activeTab, setActiveTab, childre
   }, [checkAuth, initWebSocket, disconnectWebSocket]);
 
   return (
-    <div className="flex h-screen bg-[#09090B] text-zinc-100 overflow-hidden font-sans">
-      {/* Surgical Left Sidebar */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div className="min-h-screen bg-[#F4F5FA] text-slate-900 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+      {/* Top Floating Nav Pill Header (Finnova Style) */}
+      <FinnovaHeader
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenCommandPalette={() => setCommandPaletteOpen(true)}
+      />
 
-      {/* Main Workspace Frame */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <Header
-          activeTab={activeTab}
-          onToggleAlertTicker={() => setTickerOpen(!tickerOpen)}
-          onOpenCommandPalette={() => setCommandPaletteOpen(true)}
-        />
+      {/* Main Responsive Canvas */}
+      <main className="flex-1 px-6 lg:px-10 pb-12 max-w-[1500px] w-full mx-auto">
+        {children}
+      </main>
 
-        <main className="flex-1 overflow-y-auto p-5 sm:p-6 relative">
-          <div className="max-w-7xl mx-auto">
-            {children}
-          </div>
-        </main>
+      {/* ⌘K Command Palette */}
+      <CommandPalette
+        isOpen={commandPaletteOpen}
+        onClose={() => setCommandPaletteOpen(false)}
+        onNavigate={setActiveTab}
+      />
 
-        {/* 24px-tall VS Code / Linear style status bar */}
-        <StatusBar />
-
-        <LiveAnomalyTicker
-          isOpen={tickerOpen}
-          onClose={() => setTickerOpen(false)}
-          onSelectInvoice={() => {
-            setActiveTab('smart-procurement');
-          }}
-        />
-
-        {/* Raycast ⌘K Command Palette */}
-        <CommandPalette
-          isOpen={commandPaletteOpen}
-          onClose={() => setCommandPaletteOpen(false)}
-          onNavigate={setActiveTab}
-        />
-      </div>
+      {/* Forensic Queue Drawer */}
+      <LiveAnomalyTicker
+        isOpen={tickerOpen}
+        onClose={() => setTickerOpen(false)}
+        onSelectInvoice={() => setActiveTab('smart-procurement')}
+      />
     </div>
   );
 };
