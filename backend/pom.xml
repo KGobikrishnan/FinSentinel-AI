@@ -23,6 +23,7 @@
         <pdfbox.version>3.0.3</pdfbox.version>
         <springdoc.version>2.6.0</springdoc.version>
         <pgvector.version>0.1.6</pgvector.version>
+        <lombok.version>1.18.42</lombok.version>
     </properties>
 
     <dependencies>
