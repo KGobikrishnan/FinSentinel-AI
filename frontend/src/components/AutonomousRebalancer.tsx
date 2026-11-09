@@ -121,7 +121,7 @@ export const AutonomousRebalancer: React.FC = () => {
               </div>
               <div className="flex justify-between text-zinc-500">
                 <span>Account:</span>
-                <span className="text-indigo-400">{rule.targetAccount}</span>
+                <span className="text-cyan-400">{rule.targetAccount}</span>
               </div>
             </div>
           </div>

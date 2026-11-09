@@ -118,7 +118,7 @@ export const MonteCarloSandbox: React.FC<MonteCarloSandboxProps> = ({
             <span className="text-zinc-100 font-semibold text-sm tracking-tight">
               Interactive Cashflow Monte Carlo Sandbox
             </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-cyan-400 border border-sky-500/20">
               {iterations} stochastic paths
             </span>
           </div>
@@ -188,8 +188,8 @@ export const MonteCarloSandbox: React.FC<MonteCarloSandboxProps> = ({
                 <stop offset="100%" stopColor="#10B981" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="p50Gradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6366F1" stopOpacity={0.2} />
-                <stop offset="100%" stopColor="#6366F1" stopOpacity={0.0} />
+                <stop offset="0%" stopColor="#0EA5E9" stopOpacity={0.2} />
+                <stop offset="100%" stopColor="#0EA5E9" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="p10Gradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#F43F5E" stopOpacity={0.15} />
@@ -225,7 +225,7 @@ export const MonteCarloSandbox: React.FC<MonteCarloSandboxProps> = ({
                         <span>P90 (Bull):</span>
                         <span className="tabular-nums font-semibold">${payload[0]?.value?.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between space-x-4 text-indigo-400">
+                      <div className="flex justify-between space-x-4 text-cyan-400">
                         <span>P50 (Expected):</span>
                         <span className="tabular-nums font-semibold">${payload[1]?.value?.toLocaleString()}</span>
                       </div>
@@ -256,7 +256,7 @@ export const MonteCarloSandbox: React.FC<MonteCarloSandboxProps> = ({
               type="monotone"
               dataKey="p50Expected"
               name="P50 (Expected)"
-              stroke="#6366F1"
+              stroke="#0EA5E9"
               strokeWidth={2}
               fill="url(#p50Gradient)"
             />
@@ -290,7 +290,7 @@ export const MonteCarloSandbox: React.FC<MonteCarloSandboxProps> = ({
             step="5"
             value={revenueGrowthPct}
             onChange={(e) => setRevenueGrowthPct(Number(e.target.value))}
-            className="w-full accent-indigo-500 bg-zinc-800 h-1 rounded-lg cursor-pointer"
+            className="w-full accent-sky-500 bg-zinc-800 h-1 rounded-lg cursor-pointer"
           />
           <div className="flex justify-between text-[10px] font-mono text-zinc-500">
             <span>-30%</span>

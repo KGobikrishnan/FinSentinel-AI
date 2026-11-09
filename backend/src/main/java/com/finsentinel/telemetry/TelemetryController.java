@@ -18,7 +18,7 @@ public class TelemetryController {
     private final CfoDashboardService cfoDashboardService;
 
     @GetMapping("/cfo-metrics")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER')")
     @Operation(summary = "Retrieve real-time aggregated CFO financial metrics and runway")
     public ResponseEntity<CfoMetricsResponse> getCfoMetrics() {
         return ResponseEntity.ok(cfoDashboardService.calculateMetrics());

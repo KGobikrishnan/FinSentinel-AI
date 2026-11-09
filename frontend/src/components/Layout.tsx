@@ -37,7 +37,7 @@ export const Layout: React.FC<LayoutProps> = ({ activeTab, setActiveTab, childre
   }, [checkAuth, initWebSocket, disconnectWebSocket]);
 
   return (
-    <div className="min-h-screen bg-[#F4F5FA] text-slate-900 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#F4F7F9] text-slate-900 flex flex-col font-sans selection:bg-sky-500 selection:text-white">
       {/* Top Floating Nav Pill Header (Finnova Style) */}
       <FinnovaHeader
         activeTab={activeTab}

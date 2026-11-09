@@ -144,7 +144,7 @@ export const LedgerExplorer: React.FC = () => {
       {/* 1. Page Header (Finnova Style) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
         <div className="flex items-center space-x-3.5">
-          <div className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-indigo-600 font-bold">
+          <div className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-sky-600 font-bold">
             <Scale className="w-5 h-5" />
           </div>
           <div>
@@ -163,7 +163,7 @@ export const LedgerExplorer: React.FC = () => {
               resetForm();
               setIsModalOpen(true);
             }}
-            className="h-10 px-5 rounded-full bg-[#5847F6] hover:bg-[#4B3BE0] text-white text-xs font-semibold flex items-center space-x-2 shadow-lg shadow-indigo-500/25 transition-all cursor-pointer"
+            className="h-10 px-5 rounded-full bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-semibold flex items-center space-x-2 shadow-lg shadow-sky-500/25 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Post Atomic Entry</span>
@@ -177,7 +177,7 @@ export const LedgerExplorer: React.FC = () => {
           onClick={() => setActiveSubTab('journals')}
           className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
             activeSubTab === 'journals'
-              ? 'bg-[#5847F6] text-white shadow-md shadow-indigo-500/25'
+              ? 'bg-[#0284C7] text-white shadow-md shadow-sky-500/25'
               : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 shadow-sm'
           }`}
         >
@@ -187,7 +187,7 @@ export const LedgerExplorer: React.FC = () => {
           onClick={() => setActiveSubTab('trial-balance')}
           className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center space-x-1.5 ${
             activeSubTab === 'trial-balance'
-              ? 'bg-[#5847F6] text-white shadow-md shadow-indigo-500/25'
+              ? 'bg-[#0284C7] text-white shadow-md shadow-sky-500/25'
               : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 shadow-sm'
           }`}
         >
@@ -200,7 +200,7 @@ export const LedgerExplorer: React.FC = () => {
           onClick={() => setActiveSubTab('accounts')}
           className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
             activeSubTab === 'accounts'
-              ? 'bg-[#5847F6] text-white shadow-md shadow-indigo-500/25'
+              ? 'bg-[#0284C7] text-white shadow-md shadow-sky-500/25'
               : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 shadow-sm'
           }`}
         >

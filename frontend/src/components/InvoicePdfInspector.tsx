@@ -50,7 +50,7 @@ export const InvoicePdfInspector: React.FC<InvoicePdfInspectorProps> = ({
         <div className="h-14 px-6 border-b border-white/[0.06] bg-[#0D0D10] flex items-center justify-between shrink-0">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-white/[0.06] flex items-center justify-center text-zinc-300">
-              <FileText className="w-4 h-4 text-indigo-400" />
+              <FileText className="w-4 h-4 text-cyan-400" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
@@ -100,7 +100,7 @@ export const InvoicePdfInspector: React.FC<InvoicePdfInspectorProps> = ({
               onClick={() => setHighlightAnomalies(!highlightAnomalies)}
               className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium border transition ${
                 highlightAnomalies
-                  ? 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30'
+                  ? 'bg-sky-500/10 text-cyan-300 border-sky-500/30'
                   : 'bg-zinc-900 text-zinc-400 border-white/[0.06]'
               }`}
             >

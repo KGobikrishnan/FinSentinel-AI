@@ -140,7 +140,7 @@ export const FinSentinelCopilot: React.FC = () => {
       {/* 1. Page Header (Finnova Style) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
         <div className="flex items-center space-x-3.5">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#5847F6] to-[#7B68EE] shadow-md shadow-indigo-500/25 flex items-center justify-center text-white font-bold">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#0284C7] to-[#00D4FF] shadow-md shadow-sky-500/25 flex items-center justify-center text-white font-bold">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
@@ -155,7 +155,7 @@ export const FinSentinelCopilot: React.FC = () => {
 
         <button
           onClick={() => setMessages(INITIAL_MESSAGES)}
-          className="h-9 px-4 rounded-full bg-white border border-slate-200/80 text-xs font-semibold text-slate-600 hover:text-indigo-600 shadow-sm transition-all"
+          className="h-9 px-4 rounded-full bg-white border border-slate-200/80 text-xs font-semibold text-slate-600 hover:text-sky-600 shadow-sm transition-all"
         >
           Reset Session
         </button>
@@ -166,9 +166,9 @@ export const FinSentinelCopilot: React.FC = () => {
         {/* Copilot Header */}
         <div className="h-12 px-5 border-b border-white/[0.08] bg-white/[0.02] flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Bot className="w-4 h-4 text-indigo-400" />
+            <Bot className="w-4 h-4 text-cyan-400" />
             <span className="text-xs font-bold text-white">Forensic FinOps Agent</span>
-            <span className="text-[10px] font-mono text-indigo-300 border border-indigo-400/30 px-2 py-0.5 rounded-full bg-indigo-500/20">
+            <span className="text-[10px] font-mono text-cyan-300 border border-cyan-400/30 px-2 py-0.5 rounded-full bg-sky-500/20">
               MCP Active
             </span>
           </div>

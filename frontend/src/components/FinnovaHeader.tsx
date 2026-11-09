@@ -41,15 +41,15 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
 
   return (
     <header className="px-6 lg:px-10 py-5 flex items-center justify-between select-none">
-      {/* 1. Left: FinSentinel AI Purple Ribbon Logo & Brand */}
+      {/* 1. Left: FinSentinel AI Cyan / Deep Blue Shield Logo & Brand */}
       <div className="flex items-center space-x-3.5">
-        <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#5847F6] to-[#7B68EE] flex items-center justify-center p-2 shadow-md shadow-indigo-500/25">
-          <img src="/icon.png" alt="FinSentinel AI" className="w-full h-full object-contain filter brightness-200" />
+        <div className="w-10 h-10 rounded-2xl bg-[#061638] border border-cyan-500/30 flex items-center justify-center p-1.5 shadow-md shadow-cyan-950/20">
+          <img src="/icon.png" alt="FinSentinel AI" className="w-full h-full object-contain" />
         </div>
         <div>
           <div className="flex items-center space-x-1.5">
             <span className="font-extrabold text-lg text-slate-900 tracking-tight">FIN-SENTINEL</span>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-mono">
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-cyan-50 text-sky-600 font-mono border border-cyan-200/50">
               AI
             </span>
           </div>
@@ -60,7 +60,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
       </div>
 
       {/* 2. Center: Signature Dark Floating Pill Navigation */}
-      <nav className="bg-[#161622] rounded-full p-1.5 flex items-center gap-1 shadow-lg shadow-black/10">
+      <nav className="bg-[#051329] border border-sky-900/30 rounded-full p-1.5 flex items-center gap-1 shadow-lg shadow-black/15">
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
           return (
@@ -69,7 +69,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
               onClick={() => setActiveTab(item.id)}
               className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 flex items-center space-x-1.5 cursor-pointer ${
                 isActive
-                  ? 'bg-[#5847F6] text-white shadow-[0_4px_16px_rgba(88,71,246,0.5)]'
+                  ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-[0_4px_16px_rgba(2,132,199,0.5)]'
                   : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
               }`}
             >
@@ -85,7 +85,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
         {/* Search / Command Center */}
         <button
           onClick={onOpenCommandPalette}
-          className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-slate-600 hover:text-indigo-600 hover:border-indigo-200 transition-all cursor-pointer"
+          className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-slate-600 hover:text-sky-600 hover:border-sky-200 transition-all cursor-pointer"
           title="Command Palette (⌘K)"
         >
           <Search className="w-4 h-4" />
@@ -98,7 +98,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
         >
           <span
             className={`w-2.5 h-2.5 rounded-full ${
-              isConnected ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
+              isConnected ? 'bg-cyan-500 animate-pulse' : 'bg-amber-500'
             }`}
           />
         </div>
@@ -108,7 +108,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
           href="/swagger-ui.html"
           target="_blank"
           rel="noreferrer"
-          className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-slate-600 hover:text-indigo-600 hover:border-indigo-200 transition-all"
+          className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-slate-600 hover:text-sky-600 hover:border-sky-200 transition-all"
           title="OpenAPI 3.0 Documentation"
         >
           <ExternalLink className="w-4 h-4" />
@@ -116,7 +116,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
 
         {/* Notifications */}
         <button
-          className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-slate-600 hover:text-indigo-600 hover:border-indigo-200 transition-all relative cursor-pointer"
+          className="w-10 h-10 rounded-full bg-white border border-slate-200/80 shadow-sm flex items-center justify-center text-slate-600 hover:text-sky-600 hover:border-sky-200 transition-all relative cursor-pointer"
           title="Notifications"
         >
           <Bell className="w-4 h-4" />
@@ -129,9 +129,9 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
         <div className="relative pl-1">
           <button
             onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-            className="flex items-center space-x-2 bg-white border border-slate-200/80 rounded-full p-1 pr-3 shadow-sm hover:border-indigo-200 transition-all cursor-pointer"
+            className="flex items-center space-x-2 bg-white border border-slate-200/80 rounded-full p-1 pr-3 shadow-sm hover:border-sky-200 transition-all cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white flex items-center justify-center font-bold text-xs shadow-inner">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-sky-600 to-cyan-500 text-white flex items-center justify-center font-bold text-xs shadow-inner">
               {user?.fullName?.charAt(0) || 'A'}
             </div>
             <div className="text-left hidden sm:block">
@@ -161,7 +161,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
                     }}
                     className={`w-full text-left px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-between ${
                       user?.role === r.id
-                        ? 'bg-indigo-50 text-indigo-700 font-semibold'
+                        ? 'bg-sky-50 text-sky-700 font-semibold'
                         : 'text-slate-600 hover:bg-slate-50'
                     }`}
                   >
@@ -169,7 +169,7 @@ export const FinnovaHeader: React.FC<FinnovaHeaderProps> = ({
                       <div className="font-medium">{r.label}</div>
                       <div className="text-[10px] text-slate-400">{r.desc}</div>
                     </div>
-                    {user?.role === r.id && <CheckCircle2 className="w-4 h-4 text-indigo-600" />}
+                    {user?.role === r.id && <CheckCircle2 className="w-4 h-4 text-sky-600" />}
                   </button>
                 ))}
               </div>

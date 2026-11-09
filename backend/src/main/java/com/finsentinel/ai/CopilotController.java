@@ -20,7 +20,7 @@ public class CopilotController {
     private final CopilotService copilotService;
 
     @PostMapping("/ask")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER')")
     @Operation(summary = "Ask FinOps Copilot a financial or compliance question with dynamic tool execution and charts")
     public ResponseEntity<CopilotResponse> askCopilot(@Valid @RequestBody CopilotRequest request) {
         return ResponseEntity.ok(copilotService.answerQuestion(request));

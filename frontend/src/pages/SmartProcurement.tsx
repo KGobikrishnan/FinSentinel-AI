@@ -172,7 +172,7 @@ export const SmartProcurement: React.FC = () => {
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setActiveTab('upload')}
-            className="h-8 px-3.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white flex items-center space-x-1.5 shadow-md shadow-indigo-600/20 transition-all cursor-pointer"
+            className="h-8 px-3.5 rounded-lg text-xs font-semibold bg-sky-600 hover:bg-sky-500 text-white flex items-center space-x-1.5 shadow-md shadow-sky-600/20 transition-all cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Create / Upload Invoice</span>
@@ -218,12 +218,12 @@ export const SmartProcurement: React.FC = () => {
           <div>
             <div className="flex items-center justify-between text-zinc-400">
               <span className="text-[11px] font-medium uppercase tracking-[0.06em]">Due Next Month</span>
-              <Calendar className="w-4 h-4 text-indigo-400" />
+              <Calendar className="w-4 h-4 text-cyan-400" />
             </div>
             <div className="text-2xl font-bold tracking-tight text-zinc-100 tabular-nums font-sans mt-2">
               ${dueNextMonth.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
-            <div className="flex items-center text-[11px] text-indigo-400 font-medium mt-1">
+            <div className="flex items-center text-[11px] text-cyan-400 font-medium mt-1">
               <span className="flex items-center mr-1 font-mono tabular-nums">
                 <ArrowUpRight className="w-3 h-3 mr-0.5" /> +8.2%
               </span>
@@ -236,7 +236,7 @@ export const SmartProcurement: React.FC = () => {
             {[40, 55, 30, 70, 85, 60, 100].map((h, i) => (
               <div key={i} className="flex-1 bg-zinc-800 rounded-sm h-full flex items-end overflow-hidden">
                 <div
-                  className="w-full bg-indigo-500 rounded-sm transition-all"
+                  className="w-full bg-sky-500 rounded-sm transition-all"
                   style={{ height: `${h}%` }}
                 />
               </div>
@@ -293,9 +293,9 @@ export const SmartProcurement: React.FC = () => {
               <div className="text-[9px] font-mono text-zinc-500">Visa</div>
               <div className="text-[10px] font-mono text-zinc-300">•••• 4242</div>
             </div>
-            <div className="p-1 rounded bg-indigo-500/10 border border-indigo-500/20 text-center">
-              <div className="text-[9px] font-mono text-indigo-400">Stripe</div>
-              <div className="text-[10px] font-mono text-indigo-200">•••• 6789</div>
+            <div className="p-1 rounded bg-sky-500/10 border border-sky-500/20 text-center">
+              <div className="text-[9px] font-mono text-cyan-400">Stripe</div>
+              <div className="text-[10px] font-mono text-sky-200">•••• 6789</div>
             </div>
             <div className="p-1 rounded bg-black/40 border border-white/[0.04] text-center">
               <div className="text-[9px] font-mono text-zinc-500">PayPal</div>
@@ -312,7 +312,7 @@ export const SmartProcurement: React.FC = () => {
           <div className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-zinc-900 border border-white/[0.08] text-xs text-zinc-300 font-medium">
             <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-400" />
             <span>Active filters</span>
-            <span className="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-mono">
+            <span className="w-4 h-4 rounded-full bg-sky-600 text-white text-[10px] flex items-center justify-center font-mono">
               {statusFilter === 'ALL' ? '1' : '2'}
             </span>
           </div>
@@ -325,7 +325,7 @@ export const SmartProcurement: React.FC = () => {
                 onClick={() => setStatusFilter(s)}
                 className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-all cursor-pointer ${
                   statusFilter === s
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-sky-600 text-white shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.02]'
                 }`}
               >
@@ -343,7 +343,7 @@ export const SmartProcurement: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search invoice # or vendor..."
-            className="w-full pl-9 pr-3 py-1 bg-black/40 border border-white/[0.06] rounded-lg text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-indigo-500"
+            className="w-full pl-9 pr-3 py-1 bg-black/40 border border-white/[0.06] rounded-lg text-xs text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:border-sky-500"
           />
         </div>
       </div>
@@ -379,7 +379,7 @@ export const SmartProcurement: React.FC = () => {
                       onClick={() => setSelectedInvoice(inv)}
                       className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
                         isSelected
-                          ? 'bg-indigo-600/20 border-indigo-500/40 shadow-sm'
+                          ? 'bg-sky-600/20 border-sky-500/40 shadow-sm'
                           : 'bg-zinc-900/30 border-white/[0.03] hover:bg-white/[0.02] hover:border-white/[0.08]'
                       }`}
                     >
@@ -387,7 +387,7 @@ export const SmartProcurement: React.FC = () => {
                         <div
                           className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 border text-xs font-semibold ${
                             isSelected
-                              ? 'bg-indigo-600 text-white border-indigo-400'
+                              ? 'bg-sky-600 text-white border-cyan-400'
                               : 'bg-zinc-800 text-zinc-300 border-white/[0.06]'
                           }`}
                         >
@@ -443,7 +443,7 @@ export const SmartProcurement: React.FC = () => {
               {/* Header with Company Logo & Customer Details */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
                 <div>
-                  <div className="text-[10px] uppercase tracking-wider text-indigo-200/80 font-mono">
+                  <div className="text-[10px] uppercase tracking-wider text-sky-200/80 font-mono">
                     Invoice Details
                   </div>
                   <div className="flex items-center space-x-2 mt-1">
@@ -464,10 +464,10 @@ export const SmartProcurement: React.FC = () => {
 
                 <div className="flex items-center space-x-3 bg-black/20 px-3 py-2 rounded-xl border border-white/10">
                   <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white">
-                    <Building2 className="w-4 h-4 text-indigo-300" />
+                    <Building2 className="w-4 h-4 text-cyan-300" />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase text-indigo-200/70 font-mono">Supplier</div>
+                    <div className="text-[10px] uppercase text-sky-200/70 font-mono">Supplier</div>
                     <div className="text-xs font-semibold text-white">{currentInspectInvoice.vendorName}</div>
                   </div>
                 </div>
@@ -476,33 +476,33 @@ export const SmartProcurement: React.FC = () => {
               {/* 3 Prominent Service Allocation Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm space-y-1">
-                  <div className="text-[10px] text-indigo-200/80 uppercase font-mono">Subtotal</div>
+                  <div className="text-[10px] text-sky-200/80 uppercase font-mono">Subtotal</div>
                   <div className="text-lg font-bold font-mono text-white tabular-nums">
                     ${currentInspectInvoice.subtotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </div>
-                  <div className="text-[10px] text-indigo-300/80">Base Procurement</div>
+                  <div className="text-[10px] text-cyan-300/80">Base Procurement</div>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm space-y-1">
-                  <div className="text-[10px] text-indigo-200/80 uppercase font-mono">GST (18%)</div>
+                  <div className="text-[10px] text-sky-200/80 uppercase font-mono">GST (18%)</div>
                   <div className="text-lg font-bold font-mono text-white tabular-nums">
                     ${(currentInspectInvoice.cgst + currentInspectInvoice.sgst + currentInspectInvoice.igst).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </div>
-                  <div className="text-[10px] text-indigo-300/80">Input Tax Credit</div>
+                  <div className="text-[10px] text-cyan-300/80">Input Tax Credit</div>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm space-y-1">
-                  <div className="text-[10px] text-indigo-200/80 uppercase font-mono">Total Balance</div>
+                  <div className="text-[10px] text-sky-200/80 uppercase font-mono">Total Balance</div>
                   <div className="text-lg font-bold font-mono text-white tabular-nums">
                     ${currentInspectInvoice.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </div>
-                  <div className="text-[10px] text-indigo-300/80">Net Payable</div>
+                  <div className="text-[10px] text-cyan-300/80">Net Payable</div>
                 </div>
               </div>
 
               {/* Forensic Anomaly Reason or Compliance Pass */}
               <div className="p-3.5 rounded-xl bg-black/30 border border-white/10 text-xs font-mono space-y-1">
-                <div className="text-[10px] text-indigo-200/70 uppercase">Forensic Audit Verdict</div>
+                <div className="text-[10px] text-sky-200/70 uppercase">Forensic Audit Verdict</div>
                 <div className="text-white font-sans text-xs">
                   {currentInspectInvoice.anomalyReasons?.[0] ||
                     'Invariant check verified. No unit price inflation surge detected against 90-day contracts.'}
@@ -513,11 +513,11 @@ export const SmartProcurement: React.FC = () => {
               <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center space-x-6 text-xs font-mono">
                   <div>
-                    <span className="text-indigo-200/70 text-[10px] uppercase block">Invoice Date</span>
+                    <span className="text-sky-200/70 text-[10px] uppercase block">Invoice Date</span>
                     <span className="text-white font-medium">{currentInspectInvoice.invoiceDate}</span>
                   </div>
                   <div>
-                    <span className="text-indigo-200/70 text-[10px] uppercase block">GSTIN</span>
+                    <span className="text-sky-200/70 text-[10px] uppercase block">GSTIN</span>
                     <span className="text-white font-medium">{currentInspectInvoice.gstin || '27AABCS1429B1Z8'}</span>
                   </div>
                 </div>
@@ -537,7 +537,7 @@ export const SmartProcurement: React.FC = () => {
                   {!currentInspectInvoice.journalEntryId && (
                     <button
                       onClick={() => setAuditModalOpen(true)}
-                      className="h-8 px-4 rounded-lg text-xs font-bold bg-white text-indigo-950 hover:bg-indigo-50 transition-all cursor-pointer shadow-lg shadow-black/30"
+                      className="h-8 px-4 rounded-lg text-xs font-bold bg-white text-slate-950 hover:bg-sky-50 transition-all cursor-pointer shadow-lg shadow-black/30"
                     >
                       Authorize & Disburse
                     </button>
@@ -569,9 +569,9 @@ export const SmartProcurement: React.FC = () => {
             <div
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleFileDrop}
-              className="border border-dashed border-white/[0.12] hover:border-indigo-500/50 rounded-xl p-8 text-center transition-all bg-white/[0.01]"
+              className="border border-dashed border-white/[0.12] hover:border-sky-500/50 rounded-xl p-8 text-center transition-all bg-white/[0.01]"
             >
-              <UploadCloud className="w-8 h-8 text-indigo-400 mx-auto mb-2 opacity-80" />
+              <UploadCloud className="w-8 h-8 text-cyan-400 mx-auto mb-2 opacity-80" />
               <div className="text-xs font-medium text-zinc-200">
                 {uploadFile ? uploadFile.name : 'Drop vendor invoice PDF here or browse'}
               </div>

@@ -4,11 +4,11 @@
 
 @layer base {
   body {
-    background-color: #F4F5FA;
+    background-color: #F4F7F9;
     background-image: 
-      radial-gradient(at 80% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(88, 71, 246, 0.04) 0px, transparent 50%);
-    color: #0F172A;
+      radial-gradient(at 80% 0%, rgba(2, 132, 199, 0.08) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(0, 240, 255, 0.04) 0px, transparent 50%);
+    color: #071833;
     font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
@@ -24,27 +24,27 @@
   background: #FFFFFF;
   border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: 24px;
-  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 10px 30px -10px rgba(5, 19, 41, 0.05);
   transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .finnova-bento-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.09);
-  border-color: rgba(199, 210, 254, 0.9);
+  box-shadow: 0 20px 35px -10px rgba(5, 19, 41, 0.09);
+  border-color: rgba(186, 230, 253, 0.9);
 }
 
 /* Finnova Dark Dock Shell */
 .finnova-dock-shell {
-  background: #181824;
+  background: #061638;
   border-radius: 32px;
-  box-shadow: 0 25px 60px -15px rgba(24, 24, 36, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  box-shadow: 0 25px 60px -15px rgba(5, 19, 41, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Finnova Royal Indigo Gradient */
+/* Finnova Royal Cyan & Deep Blue Gradient */
 .finnova-indigo-gradient {
-  background: linear-gradient(135deg, #635BFF 0%, #5847F6 50%, #4636C9 100%);
-  box-shadow: 0 15px 35px -10px rgba(88, 71, 246, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 50%, #0C4A6E 100%);
+  box-shadow: 0 15px 35px -10px rgba(2, 132, 199, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
 }
 
 /* Finnova Custom Scrollbars */

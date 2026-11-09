@@ -28,7 +28,7 @@ public class LedgerController {
     @PostMapping("/entries")
     @Idempotent(expireSeconds = 86400)
     @AuditedAction(action = "POST_JOURNAL_ENTRY", entity = "JOURNAL_ENTRY")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR')")
     @Operation(summary = "Post an atomic balanced double-entry journal with idempotency lock")
     public ResponseEntity<JournalEntryResponse> postJournalEntry(
             @Valid @RequestBody JournalEntryRequest request,
@@ -39,28 +39,28 @@ public class LedgerController {
     }
 
     @GetMapping("/entries")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER')")
     @Operation(summary = "List recent journal entries")
     public ResponseEntity<List<JournalEntryResponse>> getRecentEntries() {
         return ResponseEntity.ok(ledgerService.getRecentEntries());
     }
 
     @GetMapping("/entries/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER')")
     @Operation(summary = "Get journal entry detail by ID")
     public ResponseEntity<JournalEntryResponse> getEntryById(@PathVariable Long id) {
         return ResponseEntity.ok(ledgerService.getEntryById(id));
     }
 
     @GetMapping("/accounts")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER')")
     @Operation(summary = "List all chart of accounts with real-time balances")
     public ResponseEntity<List<AccountDto>> getAllAccounts() {
         return ResponseEntity.ok(ledgerService.getAllAccounts());
     }
 
     @GetMapping("/trial-balance")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR')")
     @Operation(summary = "Generate real-time Trial Balance verifying double-entry equilibrium")
     public ResponseEntity<TrialBalanceResponse> getTrialBalance(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate asOfDate) {

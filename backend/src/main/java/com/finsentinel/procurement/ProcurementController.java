@@ -27,7 +27,7 @@ public class ProcurementController {
 
     @PostMapping(value = "/invoices/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @AuditedAction(action = "UPLOAD_PDF_INVOICE", entity = "INVOICE")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER', 'ROLE_VENDOR')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER', 'VENDOR')")
     @Operation(summary = "Upload PDF invoice for automated PDFBox parsing and AI fraud triage")
     public ResponseEntity<InvoiceResponse> uploadInvoice(
             @RequestParam("file") MultipartFile file,
@@ -39,7 +39,7 @@ public class ProcurementController {
 
     @PostMapping("/invoices")
     @AuditedAction(action = "CREATE_JSON_INVOICE", entity = "INVOICE")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER', 'ROLE_VENDOR')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER', 'VENDOR')")
     @Operation(summary = "Submit structured JSON invoice with line items for instant AI fraud scoring")
     public ResponseEntity<InvoiceResponse> createInvoice(
             @Valid @RequestBody InvoiceCreateRequest request,
@@ -50,14 +50,14 @@ public class ProcurementController {
     }
 
     @GetMapping("/invoices")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER')")
     @Operation(summary = "List all invoices and their triage status")
     public ResponseEntity<List<InvoiceResponse>> getAllInvoices() {
         return ResponseEntity.ok(procurementService.getAllInvoices());
     }
 
     @GetMapping("/invoices/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER', 'ROLE_VENDOR')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER', 'VENDOR')")
     @Operation(summary = "Get invoice detail and fraud triage report")
     public ResponseEntity<InvoiceResponse> getInvoiceById(@PathVariable Long id) {
         return ResponseEntity.ok(procurementService.getInvoiceById(id));
@@ -65,7 +65,7 @@ public class ProcurementController {
 
     @PostMapping("/invoices/{id}/audit-decision")
     @AuditedAction(action = "APPLY_AUDIT_DECISION", entity = "INVOICE")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR')")
     @Operation(summary = "Manual Auditor/CFO override decision for flagged invoices")
     public ResponseEntity<InvoiceResponse> applyAuditDecision(
             @PathVariable Long id,
@@ -77,7 +77,7 @@ public class ProcurementController {
     }
 
     @GetMapping("/vendors")
-    @PreAuthorize("hasAnyRole('ROLE_CFO_ADMIN', 'ROLE_FINANCE_AUDITOR', 'ROLE_PROCUREMENT_MANAGER')")
+    @PreAuthorize("hasAnyRole('CFO_ADMIN', 'FINANCE_AUDITOR', 'PROCUREMENT_MANAGER')")
     @Operation(summary = "List all enterprise vendors and risk tiers")
     public ResponseEntity<List<VendorDto>> getAllVendors() {
         return ResponseEntity.ok(procurementService.getAllVendors());
