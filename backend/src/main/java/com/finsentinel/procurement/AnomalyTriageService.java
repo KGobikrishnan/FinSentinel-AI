@@ -32,6 +32,15 @@ public class AnomalyTriageService {
     @Value("${finsentinel.procurement.price-variance-threshold-pct:15.00}")
     private BigDecimal priceVarianceThresholdPct;
 
+    @Value("${finsentinel.procurement.cgst-rate:0.09}")
+    private BigDecimal defaultCgstRate;
+
+    @Value("${finsentinel.procurement.sgst-rate:0.09}")
+    private BigDecimal defaultSgstRate;
+
+    @Value("${finsentinel.procurement.igst-rate:0.18}")
+    private BigDecimal defaultIgstRate;
+
     @Transactional
     public Invoice triageAndPersist(InvoiceCreateRequest request, String createdBy) {
         log.info("Initiating AI fraud triage for invoice {} from vendor {}", request.getInvoiceNumber(), request.getVendorName());
@@ -75,13 +84,52 @@ public class AnomalyTriageService {
         BigDecimal sgst = (request.getSgst() != null ? request.getSgst() : BigDecimal.ZERO).setScale(2, ROUNDING);
         BigDecimal igst = (request.getIgst() != null ? request.getIgst() : BigDecimal.ZERO).setScale(2, ROUNDING);
         BigDecimal declaredTax = cgst.add(sgst).add(igst);
-        BigDecimal expectedTax = subtotal.multiply(new BigDecimal("0.18")).setScale(2, ROUNDING);
 
-        BigDecimal taxDiscrepancy = declaredTax.subtract(expectedTax).abs();
-        if (taxDiscrepancy.compareTo(new BigDecimal("0.50")) > 0) {
-            riskScore += 45;
-            anomalyReasons.add(String.format("Statutory GST discrepancy: Total declared tax ($%s) deviates from expected 18%% GST ($%s) by $%s.",
-                    declaredTax, expectedTax, taxDiscrepancy));
+        // Verification A: Tax + Subtotal must equal Total Amount (Fundamental Accounting Invariant)
+        BigDecimal expectedTotal = subtotal.add(declaredTax).setScale(2, ROUNDING);
+        BigDecimal totalDiscrepancy = request.getTotalAmount().setScale(2, ROUNDING).subtract(expectedTotal).abs();
+        if (totalDiscrepancy.compareTo(new BigDecimal("0.05")) > 0) {
+            riskScore += 50;
+            anomalyReasons.add(String.format("Accounting Invariance Violation: Declared Total ($%s) does not match Subtotal + Tax ($%s). Discrepancy: $%s",
+                    request.getTotalAmount().setScale(2, ROUNDING), expectedTotal, totalDiscrepancy));
+        }
+
+        // Verification B: Intra-State vs Inter-State GST Consistency
+        // Intra-state: CGST and SGST should be equal
+        if (cgst.compareTo(BigDecimal.ZERO) > 0 || sgst.compareTo(BigDecimal.ZERO) > 0) {
+            BigDecimal gstDiff = cgst.subtract(sgst).abs();
+            if (gstDiff.compareTo(new BigDecimal("0.05")) > 0) {
+                riskScore += 30;
+                anomalyReasons.add(String.format("Intra-state GST Asymmetry: CGST ($%s) and SGST ($%s) must be identical.", cgst, sgst));
+            }
+        }
+
+        // Verification C: Statutory Rate Benchmark check (e.g., standard 18% or configured rates)
+        BigDecimal expectedStatutoryTax;
+        if (igst.compareTo(BigDecimal.ZERO) > 0 && cgst.compareTo(BigDecimal.ZERO) == 0 && sgst.compareTo(BigDecimal.ZERO) == 0) {
+            expectedStatutoryTax = subtotal.multiply(defaultIgstRate).setScale(2, ROUNDING);
+        } else {
+            expectedStatutoryTax = subtotal.multiply(defaultCgstRate.add(defaultSgstRate)).setScale(2, ROUNDING);
+        }
+
+        BigDecimal taxDiscrepancy = declaredTax.subtract(expectedStatutoryTax).abs();
+        if (taxDiscrepancy.compareTo(new BigDecimal("1.00")) > 0) {
+            // Check if tax rate is a recognized lower/higher slab (0%, 5%, 12%, 18%, 28%)
+            BigDecimal effectiveRate = subtotal.compareTo(BigDecimal.ZERO) > 0
+                    ? declaredTax.divide(subtotal, 4, ROUNDING).multiply(BigDecimal.valueOf(100)).setScale(1, ROUNDING)
+                    : BigDecimal.ZERO;
+
+            boolean isStandardSlab = effectiveRate.compareTo(new BigDecimal("0.0")) == 0
+                    || effectiveRate.compareTo(new BigDecimal("5.0")) == 0
+                    || effectiveRate.compareTo(new BigDecimal("12.0")) == 0
+                    || effectiveRate.compareTo(new BigDecimal("18.0")) == 0
+                    || effectiveRate.compareTo(new BigDecimal("28.0")) == 0;
+
+            if (!isStandardSlab) {
+                riskScore += 35;
+                anomalyReasons.add(String.format("Statutory GST Discrepancy: Effective tax rate of %.1f%% ($%s) does not align with standard statutory GST slabs (0%%, 5%%, 12%%, 18%%, 28%%) or expected standard rate ($%s).",
+                        effectiveRate, declaredTax, expectedStatutoryTax));
+            }
         }
 
         // 5. Vendor Risk Profile Evaluation
@@ -210,6 +258,26 @@ public class AnomalyTriageService {
             return existingByName.get();
         }
 
+        // Calculate initial unit price benchmark from line items if present, fallback to subtotal
+        BigDecimal initialBenchmark = BigDecimal.ZERO;
+        if (request.getLineItems() != null && !request.getLineItems().isEmpty()) {
+            BigDecimal totalUnits = BigDecimal.ZERO;
+            BigDecimal totalSpent = BigDecimal.ZERO;
+            for (InvoiceLineItem item : request.getLineItems()) {
+                if (item.getQuantity() > 0 && item.getUnitPrice() != null && item.getUnitPrice().compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal qty = BigDecimal.valueOf(item.getQuantity());
+                    totalUnits = totalUnits.add(qty);
+                    totalSpent = totalSpent.add(item.getUnitPrice().multiply(qty));
+                }
+            }
+            if (totalUnits.compareTo(BigDecimal.ZERO) > 0) {
+                initialBenchmark = totalSpent.divide(totalUnits, 4, ROUNDING);
+            }
+        }
+        if (initialBenchmark.compareTo(BigDecimal.ZERO) <= 0) {
+            initialBenchmark = request.getSubtotal();
+        }
+
         // Register new vendor
         Vendor newVendor = Vendor.builder()
                 .name(vendorName)
@@ -217,7 +285,7 @@ public class AnomalyTriageService {
                 .taxId("AUTO-" + System.currentTimeMillis())
                 .riskTier("MEDIUM")
                 .totalInvoiced(BigDecimal.ZERO)
-                .historicalAvgUnitPrice(request.getSubtotal())
+                .historicalAvgUnitPrice(initialBenchmark)
                 .verified(false)
                 .build();
 

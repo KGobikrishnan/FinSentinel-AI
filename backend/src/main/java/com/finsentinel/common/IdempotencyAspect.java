@@ -112,9 +112,13 @@ public class IdempotencyAspect {
         } catch (Throwable t) {
             if (!(t instanceof IdempotencyException)) {
                 try {
-                    idempotencyKeyRepository.deleteById(idempotencyKey);
+                    idempotencyKeyRepository.findById(idempotencyKey).ifPresent(key -> {
+                        key.setStatus("FAILED");
+                        key.setResponsePayload(t.getMessage() != null ? t.getMessage() : "Execution failed");
+                        idempotencyKeyRepository.saveAndFlush(key);
+                    });
                 } catch (Exception ex) {
-                    log.error("Failed to clean up idempotency key on failure", ex);
+                    log.error("Failed to mark idempotency key as failed: {}", ex.getMessage());
                 }
             }
             throw t;
